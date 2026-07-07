@@ -1,0 +1,183 @@
+[
+  {
+    "name": "Chennai",
+    "region": "Coastal / Capital",
+    "description": "Gateway to the South, famous for its beaches, temples, and rich colonial history.",
+    "attractions": ["Marina Beach", "Kapaleeshwarar Temple", "Santhome Cathedral Basilica", "Government Museum"],
+    "best_season": "Nov–Feb",
+    "trip_types": ["Business", "Family"],
+    "distance_from_chennai_km": 0,
+    "is_ut": false
+  },
+  {
+    "name": "Ooty",
+    "region": "Nilgiris (Hill)",
+    "description": "The Queen of Hill Stations, featuring beautiful tea gardens, botanical gardens, and cool climate.",
+    "attractions": ["Ooty Lake", "Government Botanical Garden", "Doddabetta Peak", "Nilgiri Mountain Railway (Toy Train)"],
+    "best_season": "Sep–May",
+    "trip_types": ["Family", "Friends"],
+    "distance_from_chennai_km": 565,
+    "is_ut": false
+  },
+  {
+    "name": "Kodaikanal",
+    "region": "Dindigul (Hill)",
+    "description": "The Gift of the Forest, popular for its scenic lake, waterfalls, and pine forests.",
+    "attractions": ["Kodaikanal Lake", "Coaker's Walk", "Bryant Park", "Pillar Rocks"],
+    "best_season": "Sep–May",
+    "trip_types": ["Family", "Friends"],
+    "distance_from_chennai_km": 520,
+    "is_ut": false
+  },
+  {
+    "name": "Coimbatore",
+    "region": "Kongu region",
+    "description": "The Manchester of South India, known for textile industries and proximity to spiritual centres.",
+    "attractions": ["Adiyogi Shiva Statue", "Marudhamalai Temple", "Gass Forest Museum", "Siruvani Waterfalls"],
+    "best_season": "Oct–Feb",
+    "trip_types": ["Business", "Family"],
+    "distance_from_chennai_km": 500,
+    "is_ut": false
+  },
+  {
+    "name": "Madurai",
+    "region": "Southern TN",
+    "description": "The Athens of the East, structured around the majestic Meenakshi Amman Temple.",
+    "attractions": ["Meenakshi Amman Temple", "Thirumalai Nayakkar Mahal", "Gandhi Memorial Museum", "Alagar Koyil"],
+    "best_season": "Oct–Mar",
+    "trip_types": ["Family", "Solo"],
+    "distance_from_chennai_km": 460,
+    "is_ut": false
+  },
+  {
+    "name": "Rameswaram",
+    "region": "Southern coast",
+    "description": "A sacred pilgrimage site located on Pamban Island, rich in mythological significance.",
+    "attractions": ["Ramanathaswamy Temple", "Dhanushkodi Beach (Ghost Town)", "Pamban Bridge", "Agnitheertham"],
+    "best_season": "Oct–Apr",
+    "trip_types": ["Family", "Solo"],
+    "distance_from_chennai_km": 570,
+    "is_ut": false
+  },
+  {
+    "name": "Kanyakumari",
+    "region": "Southern tip",
+    "description": "The southernmost tip of India's mainland, where three seas meet, offering stunning sunrises and sunsets.",
+    "attractions": ["Vivekananda Rock Memorial", "Thiruvalluvar Statue", "Kanyakumari Beach", "Bhagavathy Amman Temple"],
+    "best_season": "Oct–Mar",
+    "trip_types": ["Family", "Solo"],
+    "distance_from_chennai_km": 690,
+    "is_ut": false
+  },
+  {
+    "name": "Thanjavur",
+    "region": "Delta region",
+    "description": "The cultural capital of TN, home to the UNESCO World Heritage Brihadeeswara Temple.",
+    "attractions": ["Brihadeeswara Temple (Big Temple)", "Thanjavur Maratha Palace", "Saraswathi Mahal Library", "Art Gallery"],
+    "best_season": "Nov–Feb",
+    "trip_types": ["Solo", "Family"],
+    "distance_from_chennai_km": 340,
+    "is_ut": false
+  },
+  {
+    "name": "Tiruchirapalli (Trichy)",
+    "region": "Central TN",
+    "description": "An ancient city centered around the dramatic Rockfort Temple and Srirangam Ranganathaswamy Temple.",
+    "attractions": ["Rockfort Temple", "Sri Ranganathaswamy Temple (Srirangam)", "Jambukeswarar Temple", "St. Joseph's Church"],
+    "best_season": "Nov–Feb",
+    "trip_types": ["Business", "Family"],
+    "distance_from_chennai_km": 320,
+    "is_ut": false
+  },
+  {
+    "name": "Mahabalipuram",
+    "region": "Chengalpattu (coastal)",
+    "description": "Famous for its 7th-century rock-cut carvings and monuments on the Coromandel Coast.",
+    "attractions": ["Shore Temple", "Pancha Rathas", "Arjuna's Penance", "Krishna's Butterball"],
+    "best_season": "Nov–Feb",
+    "trip_types": ["Friends", "Family"],
+    "distance_from_chennai_km": 60,
+    "is_ut": false
+  },
+  {
+    "name": "Yercaud",
+    "region": "Salem (Hill)",
+    "description": "The Jewel of the South, nestled in the Shevaroy Hills, famous for coffee plantations and orange groves.",
+    "attractions": ["Yercaud Lake", "Lady's Seat", "Pagoda Point", "Killiyur Falls"],
+    "best_season": "Oct–May",
+    "trip_types": ["Friends", "Family"],
+    "distance_from_chennai_km": 365,
+    "is_ut": false
+  },
+  {
+    "name": "Courtallam",
+    "region": "Tenkasi",
+    "description": "The Spa of South India, famous for its numerous therapeutic waterfalls.",
+    "attractions": ["Main Falls", "Five Falls", "Shenbaga Devi Temple", "Tiger Falls"],
+    "best_season": "Jul–Sep",
+    "trip_types": ["Family", "Friends"],
+    "distance_from_chennai_km": 620,
+    "is_ut": false
+  },
+  {
+    "name": "Vellore",
+    "region": "Northern TN",
+    "description": "Known for the Vellore Fort, the Golden Temple of Sripuram, and world-class medical facilities.",
+    "attractions": ["Vellore Fort", "Jalagandeeswarar Temple", "Sripuram Golden Temple", "Science Park"],
+    "best_season": "Nov–Feb",
+    "trip_types": ["Solo", "Family"],
+    "distance_from_chennai_km": 140,
+    "is_ut": false
+  },
+  {
+    "name": "Pondicherry",
+    "region": "Union Territory (adjacent)",
+    "description": "A charming coastal French colony UT, famous for its beaches, spiritual ashrams, and cafes.",
+    "attractions": ["Promenade Beach", "Auroville", "Sri Aurobindo Ashram", "French Quarter (White Town)"],
+    "best_season": "Nov–Feb",
+    "trip_types": ["Friends", "Solo"],
+    "distance_from_chennai_km": 160,
+    "is_ut": true
+  },
+  {
+    "name": "Kanchipuram",
+    "region": "Northern TN",
+    "description": "The City of Thousand Temples, world-famous for its hand-woven silk sarees and rich Dravidian heritage.",
+    "attractions": ["Kailasanathar Temple", "Ekambaranathar Temple", "Varadharaja Perumal Temple", "Silk Weaving Centers"],
+    "best_season": "Oct–Mar",
+    "trip_types": ["Family", "Solo"],
+    "distance_from_chennai_km": 75,
+    "is_ut": false
+  },
+  {
+    "name": "Yelagiri",
+    "region": "Vellore (Hill)",
+    "description": "A quiet, budget-friendly hill station composed of 14 orchards, rose gardens, and green valleys.",
+    "attractions": ["Punganoor Lake Park", "Jalagamparai Waterfalls", "Nature Park", "Swamimalai Hills trekking"],
+    "best_season": "Nov–Feb",
+    "trip_types": ["Friends", "Family"],
+    "distance_from_chennai_km": 230,
+    "is_ut": false
+  },
+  {
+    "name": "Hogenakkal",
+    "region": "Western TN",
+    "description": "Known as the Niagara of India, famous for its roaring Kaveri river falls, coracle boat rides, and medicinal baths.",
+    "attractions": ["Hogenakkal Waterfalls", "Coracle Boat Ride", "Melagiri Hills", "Children's Park"],
+    "best_season": "Jul–Oct",
+    "trip_types": ["Friends", "Family"],
+    "distance_from_chennai_km": 345,
+    "is_ut": false
+  },
+  {
+    "name": "Valparai",
+    "region": "Coimbatore (Hill)",
+    "description": "An unspoiled hill station in the Anamalai Hills, surrounded by deep forests, tea plantations, and scenic dams.",
+    "attractions": ["Aliyar Dam", "Nallamudi Viewpoint", "Sholayar Dam", "Loam's View Point"],
+    "best_season": "Oct–Mar",
+    "trip_types": ["Friends", "Family", "Solo"],
+    "distance_from_chennai_km": 580,
+    "is_ut": false
+  }
+]
+

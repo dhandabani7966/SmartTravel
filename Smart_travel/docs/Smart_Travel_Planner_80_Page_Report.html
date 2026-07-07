@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Travel Planner - 80 Page Detailed Project Report</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #dfe7ef;
+      color: #17212b;
+      line-height: 1.45;
+    }
+
+    .page {
+      width: 186mm;
+      min-height: 273mm;
+      margin: 12mm auto;
+      padding: 14mm 16mm;
+      background: #ffffff;
+      box-sizing: border-box;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+      page-break-after: always;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 10px;
+      color: #0f3d4c;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 16px;
+    }
+
+    h3 {
+      font-size: 15px;
+      margin-top: 14px;
+    }
+
+    p {
+      margin: 8px 0;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 8px 0 8px 22px;
+      padding: 0;
+    }
+
+    li {
+      margin: 4px 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid #c9d5df;
+      padding: 8px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf4f8;
+      text-align: left;
+    }
+
+    .page-no {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #4c6272;
+      text-align: right;
+    }
+
+    .cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 14px;
+      background: linear-gradient(180deg, #f5fbfd 0%, #ffffff 100%);
+    }
+
+    .meta {
+      font-size: 14px;
+      color: #324b5c;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      background: #0f766e;
+      color: #ffffff;
+      border-radius: 4px;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+
+    code {
+      background: #f2f6f8;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover">
+    <span class="badge">Detailed Engineering Report</span>
+    <h1>Smart Travel Planner Application</h1>
+    <p>
+      This document is a structured 80-page project report for the Smart Travel Planner Application.
+      It explains the business context, feature scope, implementation details, architecture, database design,
+      algorithms, testing approach, validation outcomes, deployment workflow, limitations, and future extension paths.
+    </p>
+    <p class="meta"><strong>Project Type:</strong> Streamlit-based full-stack academic software project</p>
+    <p class="meta"><strong>Implementation Stack:</strong> Python, Streamlit, SQLite, Pandas, Plotly</p>
+    <p class="meta"><strong>Source Folder:</strong> <code>F:\Smart Travel Planner Application</code></p>
+    <p class="meta"><strong>Prepared For:</strong> Academic evaluation and technical documentation</p>
+    <p class="meta"><strong>Prepared On:</strong> 2026-05-30</p>
+    <div class="page-no">Page 1 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Abstract</h1>
+    <p>
+      The Smart Travel Planner Application is a complete travel-management system developed using Streamlit as the
+      presentation layer and SQLite as the persistent data store. The project was implemented as a production-style
+      academic application rather than a prototype. It includes user registration, secure login, preference capture,
+      trip creation, itinerary generation, budget estimation, destination recommendations, profile management,
+      analytics, administrative controls, exports, and centralized logging.
+    </p>
+    <p>
+      The system is designed to solve a common planning problem: travelers often need to compare destinations,
+      estimate costs, organize schedules, and retain a historical view of their trips. The application addresses
+      that problem through a unified workflow in which the user can define preferences, evaluate recommendations,
+      generate a day-wise trip plan, and monitor spending assumptions through an integrated dashboard.
+    </p>
+    <p>
+      This report studies both the product and the implementation. It describes how the codebase is organized,
+      how tables are related in the database, how security is implemented for credentials, and how each page uses
+      shared service modules to avoid duplication. The result is a coherent reference that can support academic
+      review, viva preparation, project demonstration, and future maintenance.
+    </p>
+    <div class="page-no">Page 2 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Project Summary</h1>
+    <p>
+      The application was built as an end-to-end software deliverable. That means the repository includes working
+      source code, the SQLite database bootstrap logic, a destination dataset, page scripts, validation logic,
+      logging infrastructure, export functions, and a tested startup path. It is not a design-only concept.
+    </p>
+    <ul>
+      <li>Frontend: Streamlit multipage application with navigation and session state.</li>
+      <li>Backend logic: Python service modules in <code>smart_travel</code>.</li>
+      <li>Database: SQLite with normalized tables and foreign keys.</li>
+      <li>Reporting support: CSV, JSON, and Markdown export of trip data.</li>
+      <li>Administration: user access management, trip oversight, and audit visibility.</li>
+    </ul>
+    <p>
+      The implementation prioritizes simplicity, maintainability, and immediate runnability. Streamlit was selected
+      because it enables rapid yet structured UI development in Python, which suits academic software projects where
+      functionality and traceability matter more than complex client-side frameworks.
+    </p>
+    <div class="page-no">Page 3 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Background and Motivation</h1>
+    <p>
+      Travel planning normally involves scattered tools: spreadsheets for budgets, maps for places, notes for plans,
+      and separate portals for bookings. That fragmentation creates practical issues. Users lose historical context,
+      cannot compare destinations consistently, and often build itineraries manually with weak cost discipline.
+    </p>
+    <p>
+      The motivation behind Smart Travel Planner is to centralize these concerns into one lightweight but structured
+      application. The design goal is not to replace airline or hotel booking platforms. Instead, it acts as an
+      intelligent planning and management layer before or alongside bookings. The application helps users answer
+      questions such as: Which destination fits my budget and interests? What might a five-day plan look like?
+      How much should I expect to spend? Which trips did I plan previously and what were their financial outcomes?
+    </p>
+    <p>
+      From an academic viewpoint, this project demonstrates the integration of database design, security,
+      recommendation logic, analytics, structured logging, modular programming, and user-facing workflows in a single system.
+    </p>
+    <div class="page-no">Page 4 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Problem Statement</h1>
+    <p>
+      The core problem addressed by the project is the absence of a simple planning platform that combines destination
+      selection, budget forecasting, itinerary preparation, and historical trip management. Existing consumer tools
+      typically focus on booking or travel discovery rather than integrated planning. They also do not usually expose
+      project-friendly, inspectable logic suitable for educational review.
+    </p>
+    <p>
+      This system therefore targets a defined problem statement: design and implement a travel planning application
+      where authenticated users can manage personalized travel preferences, create detailed trips, generate estimates
+      and schedules automatically, and access analytics over time, while an administrator can supervise system activity.
+    </p>
+    <p>
+      The problem is handled through modular services rather than monolithic page logic. This decision matters because
+      it keeps the user interface thin and allows the core planning logic to be tested independently of the web pages.
+    </p>
+    <div class="page-no">Page 5 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Primary Objectives</h1>
+    <ul>
+      <li>Provide secure registration and login using hashed passwords.</li>
+      <li>Store user preferences such as budget style, interests, and preferred continent.</li>
+      <li>Allow users to create, update, review, and delete travel plans.</li>
+      <li>Generate destination recommendations aligned to budget and interests.</li>
+      <li>Estimate the full trip budget using transparent calculation logic.</li>
+      <li>Construct a multi-day itinerary automatically from destination activities.</li>
+      <li>Offer dashboards and analytics for financial and historical insight.</li>
+      <li>Support export of trip data for sharing and documentation.</li>
+      <li>Maintain comprehensive logs and audit records for important events.</li>
+      <li>Expose administrative capabilities for governance and oversight.</li>
+    </ul>
+    <p>
+      These objectives are fully reflected in the codebase. No major module is left as a stub. Each referenced feature
+      has a corresponding implementation in the repository.
+    </p>
+    <div class="page-no">Page 6 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Project Scope</h1>
+    <p>
+      The scope of the project includes planning and management functions. It covers identity management, data capture,
+      algorithm-driven planning, record keeping, analytics, and reporting. It deliberately excludes real-time booking,
+      payment gateway integration, airline APIs, hotel reservation APIs, and geospatial route optimization. Those
+      omissions are intentional so the project remains focused and maintainable within an academic delivery boundary.
+    </p>
+    <p>
+      Within scope, however, the application is detailed. It includes a dataset-driven recommendation engine, itinerary
+      generation based on interest categories, per-trip budget models, export facilities, and an administrative interface.
+      The result is broad enough to demonstrate software engineering depth while constrained enough to be implemented well.
+    </p>
+    <div class="page-no">Page 7 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Stakeholders and Users</h1>
+    <p>
+      The project has three practical stakeholder groups. The first is the end user, who uses the system to maintain
+      travel preferences, plan trips, and review past plans. The second is the administrator, who uses the system to
+      monitor users, inspect trip activity, review audit records, and correct access permissions. The third is the
+      academic evaluator or maintainer, who needs the software to be understandable, testable, and reviewable.
+    </p>
+    <table>
+      <tr><th>Stakeholder</th><th>Need</th><th>System Response</th></tr>
+      <tr><td>Traveler</td><td>Fast trip planning with guidance</td><td>Recommendations, budgets, itinerary, trip history</td></tr>
+      <tr><td>Administrator</td><td>Governance and oversight</td><td>Admin panel, audit visibility, access control</td></tr>
+      <tr><td>Evaluator</td><td>Clear implementation and evidence</td><td>Modular code, logs, schema, validation, tests</td></tr>
+    </table>
+    <div class="page-no">Page 8 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Functional Requirements</h1>
+    <p>The system implements the following functional requirements as working code:</p>
+    <ol>
+      <li>User registration with validation.</li>
+      <li>Secure login and logout.</li>
+      <li>User profile update and password change.</li>
+      <li>User preference storage and editing.</li>
+      <li>Recommendation generation from a destination dataset.</li>
+      <li>Trip creation with budget and itinerary generation.</li>
+      <li>Trip editing, deletion, and status updates.</li>
+      <li>Trip history display and export.</li>
+      <li>Dashboard and analytics for metrics and trends.</li>
+      <li>Administrator control over users and trips.</li>
+    </ol>
+    <p>
+      Each requirement is mapped to specific modules and page scripts, which are examined later in the report.
+    </p>
+    <div class="page-no">Page 9 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Non-Functional Requirements</h1>
+    <p>
+      The system also satisfies important non-functional concerns. It is lightweight, easy to install, locally runnable,
+      organized into modules, and instrumented with logging. It relies on a small dependency set, uses deterministic
+      SQLite persistence, and includes validation before writes. The system is not designed for internet-scale traffic,
+      but for a project of this size it is dependable and maintainable.
+    </p>
+    <ul>
+      <li>Usability: simple forms and consistent page structure.</li>
+      <li>Maintainability: shared service layer and modular files.</li>
+      <li>Security: hashed passwords, session-based access checks.</li>
+      <li>Portability: runs with standard Python and declared dependencies.</li>
+      <li>Traceability: log file and audit table retain significant events.</li>
+    </ul>
+    <div class="page-no">Page 10 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Technology Stack</h1>
+    <table>
+      <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+      <tr><td>Language</td><td>Python</td><td>Application logic, data processing, and database access</td></tr>
+      <tr><td>UI Framework</td><td>Streamlit</td><td>Multipage interactive web application</td></tr>
+      <tr><td>Database</td><td>SQLite</td><td>Local relational persistence with low operational overhead</td></tr>
+      <tr><td>Data Analysis</td><td>Pandas</td><td>Tabular transformation and export support</td></tr>
+      <tr><td>Visualization</td><td>Plotly</td><td>Charts for analytics and dashboard insights</td></tr>
+      <tr><td>Logging</td><td>Python logging</td><td>Application and exception trace recording</td></tr>
+    </table>
+    <p>
+      This stack is appropriate because it balances implementation speed with clarity. It is also easy to explain in
+      an academic setting because all major components are accessible and readable within Python.
+    </p>
+    <div class="page-no">Page 11 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Dependency Profile</h1>
+    <p>
+      The project uses a very small declared dependency set in <code>requirements.txt</code>:
+      <code>streamlit</code>, <code>pandas</code>, and <code>plotly</code>. The rest of the functionality is built
+      using the Python standard library, including <code>sqlite3</code>, <code>hashlib</code>, <code>hmac</code>,
+      <code>json</code>, <code>logging</code>, and file-system utilities.
+    </p>
+    <p>
+      This is a strong architectural decision. It reduces environment friction, minimizes package version conflicts,
+      and makes the project easier to install and evaluate. It also demonstrates that not every software project needs
+      an excessive dependency footprint to deliver meaningful functionality.
+    </p>
+    <div class="page-no">Page 12 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Repository Structure</h1>
+    <p>
+      The repository is intentionally shallow and readable. The root contains the Streamlit entrypoint, data folder,
+      logs folder, documentation folder, page scripts, and the <code>smart_travel</code> package where application
+      services live.
+    </p>
+    <table>
+      <tr><th>Path</th><th>Role</th></tr>
+      <tr><td><code>app.py</code></td><td>Main landing page and application entrypoint</td></tr>
+      <tr><td><code>pages/</code></td><td>Streamlit multipage scripts</td></tr>
+      <tr><td><code>smart_travel/</code></td><td>Core modules and business logic</td></tr>
+      <tr><td><code>data/destinations.json</code></td><td>Destination dataset</td></tr>
+      <tr><td><code>logs/application.log</code></td><td>Persistent application log file</td></tr>
+      <tr><td><code>smart_travel.db</code></td><td>SQLite database created during initialization</td></tr>
+    </table>
+    <div class="page-no">Page 13 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Architectural Style</h1>
+    <p>
+      The application follows a pragmatic layered structure. Streamlit page files are responsible for rendering forms,
+      tables, charts, and user messages. They do not directly implement business logic. Instead, they call into service
+      modules located in the <code>smart_travel</code> package.
+    </p>
+    <p>
+      Those service modules coordinate validation, data access, algorithmic processing, and audit recording. The
+      database layer is abstracted into helper functions for query execution and transaction handling. This pattern
+      gives the project several benefits: cleaner UI code, reusability, easier testing, and lower risk of accidental
+      duplication between pages.
+    </p>
+    <div class="page-no">Page 14 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>High-Level Flow</h1>
+    <p>
+      At startup, the main application imports <code>initialize_app()</code> from the package. Initialization creates
+      the log directory if necessary, configures the log handler, initializes the SQLite schema, and ensures the
+      existence of the default administrator account. After that, Streamlit session state is prepared and the page UI
+      is rendered.
+    </p>
+    <p>
+      During normal use, the flow is: authenticate user, read profile and preferences, generate recommendations, create
+      or edit trips, calculate budgets, generate itinerary rows, write all related records in the database, and display
+      them back to the user through the dashboard, history, and analytics pages.
+    </p>
+    <div class="page-no">Page 15 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Main Application Entry Point</h1>
+    <p>
+      The root file <code>app.py</code> behaves as the landing page. It sets the Streamlit page configuration, calls
+      initialization, sets default session state, renders the sidebar, and then shows either public actions
+      (register and login) or authenticated actions (dashboard, plan a trip, trip history).
+    </p>
+    <p>
+      The home page is deliberately simple because it functions as a router and status overview rather than a marketing
+      site. Once a user logs in, the application expects task-oriented navigation, not promotional browsing.
+    </p>
+    <div class="page-no">Page 16 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Registration Page</h1>
+    <p>
+      The file <code>pages/1_Register.py</code> provides the registration workflow. It collects the user's full name,
+      email address, home city, preferred currency, password, travel style, budget level, interests, and preferred
+      continent. These inputs are handed to <code>register_user()</code> in the authentication module.
+    </p>
+    <p>
+      Validation is enforced before database insertion. The page checks password confirmation locally, while the service
+      layer checks email format, password complexity, preference values, and duplicate email existence. Successful
+      registration creates entries in both <code>users</code> and <code>user_preferences</code>.
+    </p>
+    <div class="page-no">Page 17 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Login Page</h1>
+    <p>
+      The file <code>pages/2_Login.py</code> contains the login form. It captures email and password and sends them to
+      <code>authenticate_user()</code>. If the credentials are valid, the user record is returned, session state is
+      populated, and Streamlit is directed to the dashboard page.
+    </p>
+    <p>
+      Failed logins are not ignored. They are logged with warning severity and also inserted into the audit log for
+      traceability. This is important both from a security perspective and for project completeness.
+    </p>
+    <div class="page-no">Page 18 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Dashboard Page</h1>
+    <p>
+      The dashboard script in <code>pages/3_Dashboard.py</code> is the first page shown after login. It loads the user
+      profile, computes summary metrics, shows upcoming trips, lists recent activity, and displays personalized
+      recommendations. The dashboard therefore acts as the user's operational control surface.
+    </p>
+    <p>
+      Metrics come from the analytics module, not from UI-local calculations. This keeps logic centralized and makes the
+      dashboard easy to extend later without adding raw SQL inside the page script.
+    </p>
+    <div class="page-no">Page 19 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Trip Planning Page</h1>
+    <p>
+      The file <code>pages/4_Plan_A_Trip.py</code> is the most functionally dense page in the application. It has two
+      tabs. The first is for recommendation generation, where users can define budget, dates, traveler count, trip type,
+      interests, and preferred continent. The second is for trip creation or trip update.
+    </p>
+    <p>
+      When a trip is saved, the page does not perform ad hoc record writes. It passes a structured payload to
+      <code>save_trip()</code> in the service layer, which validates the payload, calculates the budget, generates the
+      itinerary, produces alternative recommendations, and writes everything transactionally.
+    </p>
+    <div class="page-no">Page 20 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Trip History Page</h1>
+    <p>
+      The trip history page in <code>pages/5_Trip_History.py</code> gives users a consolidated view of all created trips.
+      Records can be filtered by status. Each trip expands into detailed budget data, itinerary rows, and alternative
+      recommendations. The page also provides export buttons for JSON, CSV, and Markdown outputs.
+    </p>
+    <p>
+      Additional controls allow a user to revise status and actual spending, which supports post-trip analysis. A delete
+      action is also available, routed through the services layer for permission checks and audit logging.
+    </p>
+    <div class="page-no">Page 21 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Profile Page</h1>
+    <p>
+      The profile page at <code>pages/6_Profile.py</code> is divided into account, preferences, and security tabs.
+      This design is appropriate because it separates identity data from preference data and password management.
+    </p>
+    <p>
+      Users can change display information such as full name, city, and currency, update travel styles and interests,
+      or submit a password change. Each operation is routed through dedicated service functions so that validation,
+      audit recording, and exception handling stay consistent.
+    </p>
+    <div class="page-no">Page 22 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Analytics Page</h1>
+    <p>
+      The analytics page in <code>pages/7_Analytics.py</code> transforms stored trip data into management insight. It
+      renders status distribution, monthly trend, spend-by-destination, and budget-vs-estimate visualizations using
+      Plotly. It also retains a detailed budget comparison table below the charts.
+    </p>
+    <p>
+      This page is significant because it elevates the project beyond basic CRUD. Instead of only storing records, the
+      application interprets them and provides patterns that can influence user decisions.
+    </p>
+    <div class="page-no">Page 23 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Admin Panel</h1>
+    <p>
+      The administrator page in <code>pages/8_Admin_Panel.py</code> exposes user counts, trip counts, estimated spend,
+      and audit event totals. It also provides three operational tabs: user management, trip management, and audit log
+      inspection, with a fourth tab for the tail of <code>logs/application.log</code>.
+    </p>
+    <p>
+      Administrative actions are not cosmetic. The page can change user access flags, update trip statuses, and delete
+      trips as an administrator. Every such action is recorded as an <code>admin_action</code> event in the audit log.
+    </p>
+    <div class="page-no">Page 24 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Configuration Module</h1>
+    <p>
+      The configuration module in <code>smart_travel/config.py</code> defines application constants such as the app
+      name, root paths, log file path, database path, default administrator credentials, enumerated currencies, travel
+      styles, budget levels, trip types, statuses, interest options, and continents.
+    </p>
+    <p>
+      Centralizing this information prevents duplication and makes the code easier to reason about. It also ensures page
+      scripts and service modules use the same controlled vocabulary for selection widgets and validation rules.
+    </p>
+    <div class="page-no">Page 25 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Logging Module</h1>
+    <p>
+      The file <code>smart_travel/logger.py</code> creates the logging system. It ensures the log directory exists,
+      configures a rotating file handler, sets a consistent format, writes an application startup entry, and registers
+      a shutdown callback. The log pattern matches the project requirement:
+      timestamp, log level, module name, and event description.
+    </p>
+    <p>
+      A helper named <code>log_exception()</code> wraps exception logging with stack traces. This is used by other
+      modules to guarantee that failures are not silent.
+    </p>
+    <div class="page-no">Page 26 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Database Layer Overview</h1>
+    <p>
+      The database module in <code>smart_travel/database.py</code> is responsible for schema creation, connection
+      provisioning, transaction management, query execution, and audit event insertion. It uses SQLite with
+      <code>row_factory</code> enabled so rows can be converted to dictionaries cleanly.
+    </p>
+    <p>
+      The module exposes helper functions such as <code>fetch_one()</code>, <code>fetch_all()</code>,
+      <code>execute()</code>, <code>execute_many()</code>, and <code>record_audit_event()</code>. These abstractions
+      keep the rest of the code concise while ensuring consistent exception handling.
+    </p>
+    <div class="page-no">Page 27 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Database Schema Summary</h1>
+    <table>
+      <tr><th>Table</th><th>Purpose</th></tr>
+      <tr><td><code>users</code></td><td>User identity, credentials, role, status, and timestamps</td></tr>
+      <tr><td><code>user_preferences</code></td><td>Travel style, budget level, interests, continent preference</td></tr>
+      <tr><td><code>trips</code></td><td>Master trip records, financial summary, status, and notes</td></tr>
+      <tr><td><code>trip_days</code></td><td>Day-wise itinerary entries for each trip</td></tr>
+      <tr><td><code>trip_recommendations</code></td><td>Alternative destination suggestions stored per trip</td></tr>
+      <tr><td><code>app_audit_log</code></td><td>Recorded activity trail for governance and traceability</td></tr>
+    </table>
+    <p>
+      Foreign keys are enabled, and dependent tables are linked to their parents with delete behavior defined where appropriate.
+    </p>
+    <div class="page-no">Page 28 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Users Table Design</h1>
+    <p>
+      The <code>users</code> table stores the primary identity record. It contains a generated integer primary key,
+      the user's full name, unique email address, password hash, salt, role flag, active flag, home city, preferred
+      currency, created timestamp, and last login timestamp.
+    </p>
+    <p>
+      Storing the password hash and salt separately is the correct security approach for this scale of application.
+      The table also includes <code>is_admin</code> and <code>is_active</code> booleans, which are used by the admin
+      panel and authentication logic to govern system access.
+    </p>
+    <div class="page-no">Page 29 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>User Preferences Table Design</h1>
+    <p>
+      The <code>user_preferences</code> table is a one-to-one extension of the user record. It stores the travel style,
+      budget level, a JSON array of interests, and the preferred continent. This is kept separate from the identity
+      table because preferences change independently from authentication data.
+    </p>
+    <p>
+      Using a dedicated table also makes the design more normalized and avoids mixing security-sensitive columns with
+      planning preferences in the same structure.
+    </p>
+    <div class="page-no">Page 30 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Trips Table Design</h1>
+    <p>
+      The <code>trips</code> table is the central domain table. It stores the owning user ID, title, destination,
+      destination country, origin city, start and end dates, traveler count, budget limit, selected interests as JSON,
+      trip type, travel style, notes, status, estimated cost, actual cost, and budget breakdown JSON.
+    </p>
+    <p>
+      This table intentionally stores a financial snapshot rather than recalculating historical budgets every time a
+      user opens a trip. That preserves the assumptions made when the trip was created or last edited.
+    </p>
+    <div class="page-no">Page 31 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Trip Days and Recommendation Tables</h1>
+    <p>
+      The <code>trip_days</code> table stores day-level itinerary output. Each record has the trip ID, day number,
+      date, day title, morning plan, afternoon plan, evening plan, and estimated daily cost. This isolates repeating
+      schedule content from the trip master row.
+    </p>
+    <p>
+      The <code>trip_recommendations</code> table stores ranked alternatives generated at save time. Keeping them
+      persistently allows a user to revisit the context in which a trip was planned rather than losing the recommendation set.
+    </p>
+    <div class="page-no">Page 32 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Audit Log Table</h1>
+    <p>
+      The <code>app_audit_log</code> table is an important governance feature. It records a user ID when available,
+      event type, entity type, entity ID, description, and timestamp. This table is used for both user activity and
+      administrative actions.
+    </p>
+    <p>
+      The value of this design is twofold. First, it enables the dashboard and admin panel to display activity context.
+      Second, it improves accountability, which is especially relevant when a project includes role-based actions.
+    </p>
+    <div class="page-no">Page 33 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Destination Data Loader</h1>
+    <p>
+      The module <code>smart_travel/data_loader.py</code> is the bridge between the static JSON dataset and the planning
+      logic. It loads <code>data/destinations.json</code>, caches the loaded list, and exposes helpers to retrieve one
+      destination by name or produce a sorted list of destination names for UI dropdowns.
+    </p>
+    <p>
+      Caching the dataset is a small but useful optimization. It prevents repeated file reads during the same process
+      lifetime, which improves responsiveness when users open planning pages multiple times.
+    </p>
+    <div class="page-no">Page 34 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Validation Module</h1>
+    <p>
+      The validation logic lives in <code>smart_travel/validators.py</code>. It includes email validation, password
+      policy validation, date parsing, registration payload validation, trip payload validation, and preference checks.
+    </p>
+    <p>
+      This module is critical because it prevents malformed records from being inserted into the database. It also
+      reduces duplication because both registration and profile workflows can depend on the same rule definitions.
+    </p>
+    <div class="page-no">Page 35 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Password Security Design</h1>
+    <p>
+      Password storage uses <code>hashlib.pbkdf2_hmac()</code> with the SHA-256 digest and 200,000 iterations. A
+      unique random salt is generated for each password unless an existing salt is being reused for verification.
+    </p>
+    <p>
+      The resulting hash and salt are stored as hexadecimal strings in the database. Password comparisons use
+      <code>hmac.compare_digest()</code>, which is the correct approach for reducing timing-attack leakage in direct
+      string comparisons. For a local academic project, this is a solid and defensible implementation.
+    </p>
+    <div class="page-no">Page 36 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Registration Workflow Internals</h1>
+    <p>
+      The <code>register_user()</code> function performs several steps in sequence. It validates the input payload,
+      checks whether the email already exists, hashes the password, inserts the user record, inserts the preference
+      record, writes an informational log entry, and records a registration audit event.
+    </p>
+    <p>
+      If validation fails, the function returns a user-facing message and also records the failure. If insertion fails,
+      the function logs the exception and returns a safe error message instructing the operator to consult the log.
+    </p>
+    <div class="page-no">Page 37 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Login Workflow Internals</h1>
+    <p>
+      The login flow first logs the attempt, retrieves the user row by normalized email, checks whether the user is
+      active, derives the expected hash from the supplied password and stored salt, and compares it to the stored hash.
+      On success, the function updates <code>last_login_at</code>, records an audit event, and returns the user object.
+    </p>
+    <p>
+      On failure, the code distinguishes between unknown email, inactive user, and bad password. That distinction is
+      useful in logs and audit data even though the user-facing message remains appropriately generic.
+    </p>
+    <div class="page-no">Page 38 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Logout and Session Flow</h1>
+    <p>
+      Session handling is managed in <code>smart_travel/ui.py</code>. The helper <code>init_session_state()</code>
+      sets predictable defaults, while <code>set_session_user()</code> writes authenticated identity details into
+      <code>st.session_state</code>. The <code>clear_session_user()</code> helper resets those values and records logout.
+    </p>
+    <p>
+      This is a sensible session model for a Streamlit application because Streamlit provides server-managed state per session.
+      Access protection is then enforced through <code>require_login()</code>, with an optional administrator-only branch.
+    </p>
+    <div class="page-no">Page 39 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Budget Engine Overview</h1>
+    <p>
+      The budget engine resides in <code>smart_travel/budget.py</code>. Its primary public function is
+      <code>estimate_trip_budget()</code>. This function receives destination attributes, dates, traveler count,
+      travel style, trip type, and budget limit, and returns a structured dictionary containing multiple cost categories
+      and whether the estimate falls within the declared budget.
+    </p>
+    <p>
+      The engine is intentionally transparent. Instead of using opaque heuristics, it combines destination-level cost
+      fields with style multipliers, trip-type activity factors, a room factor, and a contingency allowance.
+    </p>
+    <div class="page-no">Page 40 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Budget Formula Details</h1>
+    <p>The budget model estimates these components:</p>
+    <ul>
+      <li>Stay cost based on average daily destination cost, trip days, room factor, and style multiplier</li>
+      <li>Meal cost based on daily meal estimate, days, travelers, and style multiplier</li>
+      <li>Local transport cost based on daily estimate and traveler count</li>
+      <li>Activity cost based on daily activity estimate and trip-type factor</li>
+      <li>Flight cost using a destination-level base flight estimate</li>
+      <li>Visa cost using destination-level visa fee</li>
+      <li>Contingency at 8 percent of the subtotal</li>
+    </ul>
+    <p>
+      This structure is simple enough to explain yet rich enough to feel realistic. The returned breakdown is stored in
+      JSON so it can be displayed later without recalculation.
+    </p>
+    <div class="page-no">Page 41 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Itinerary Engine Overview</h1>
+    <p>
+      The itinerary logic is implemented in <code>smart_travel/itinerary.py</code>. Its role is to convert a destination,
+      date range, and list of interests into a multi-day travel plan. The engine works by mapping interests to activity
+      categories and then selecting matching activities from the destination dataset.
+    </p>
+    <p>
+      If the destination does not have activities matching the requested interests, the system falls back to the full
+      destination activity pool. This fallback avoids empty itineraries and ensures every saved trip is complete.
+    </p>
+    <div class="page-no">Page 42 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Itinerary Logic Details</h1>
+    <p>
+      Each itinerary day contains a title, date, morning segment, afternoon segment, evening segment, and estimated
+      daily cost. The engine treats the first and last days slightly differently when the trip spans multiple days:
+      the first day emphasizes arrival, and the last day emphasizes final experiences and departure.
+    </p>
+    <p>
+      Activities are selected cyclically from the filtered activity pool. This means the logic can support trips longer
+      than the count of unique activities without failing. The daily cost is computed using activity costs plus meal and
+      local transport estimates from the destination.
+    </p>
+    <div class="page-no">Page 43 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Recommendation Engine Overview</h1>
+    <p>
+      The recommendation module in <code>smart_travel/recommendation.py</code> produces ranked destination candidates.
+      It accepts budget, travelers, dates, interests, trip type, and an optional preferred continent. For each destination
+      in the dataset, it estimates a budget and then computes a score based on budget fit, interest alignment,
+      trip-type support, seasonal suitability, and continent preference.
+    </p>
+    <p>
+      The recommendations are returned as ranked dictionaries with score, summary, estimated total, and budget-fit flag.
+    </p>
+    <div class="page-no">Page 44 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Recommendation Scoring Logic</h1>
+    <p>
+      The scoring model is rule-based rather than machine-learned. That is appropriate here because the data is a small
+      curated dataset, not a large historical corpus. A destination receives score contributions for:
+    </p>
+    <ul>
+      <li>Being within the user's budget or near the budget threshold</li>
+      <li>Matching the user's preferred continent</li>
+      <li>Being seasonally aligned to the requested start month</li>
+      <li>Supporting the selected trip type</li>
+      <li>Carrying high category scores for the user's interests</li>
+    </ul>
+    <p>
+      The result is explainable and easy to maintain. Every output can be justified by visible scoring rules.
+    </p>
+    <div class="page-no">Page 45 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Service Layer Overview</h1>
+    <p>
+      The file <code>smart_travel/services.py</code> ties together the application. It exposes initialization,
+      trip persistence, list and detail retrieval, deletion, status updates, administrator updates, log reading,
+      and aggregate helper functions.
+    </p>
+    <p>
+      This module is the application's orchestration hub. It is where multiple lower-level services are combined into
+      user-facing workflows. That design is important because it gives the project a true backend layer despite using
+      Streamlit for the frontend.
+    </p>
+    <div class="page-no">Page 46 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Trip Creation Transaction</h1>
+    <p>
+      The most important service function is <code>save_trip()</code>. For a new trip, it validates the payload,
+      retrieves the destination, calculates the budget, builds the itinerary, generates alternative recommendations,
+      inserts the trip master row, inserts trip-day rows, inserts stored recommendations, logs success, and writes an audit event.
+    </p>
+    <p>
+      This flow is intentionally transactional. The related records are written within a managed cursor block so that
+      partial trip states are avoided.
+    </p>
+    <div class="page-no">Page 47 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Trip Update Transaction</h1>
+    <p>
+      Trip updates reuse the same <code>save_trip()</code> function but with a trip ID. In that branch the service
+      updates the master trip row, deletes existing itinerary and recommendation children, and regenerates them from
+      the current payload. This keeps all derived trip artifacts synchronized with the latest user choices.
+    </p>
+    <p>
+      The design trades a small amount of rewrite cost for correctness and simplicity. Given the low scale of the
+      application, this is the right choice.
+    </p>
+    <div class="page-no">Page 48 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Trip Delete and Status Workflows</h1>
+    <p>
+      The delete path first checks whether the trip exists and whether the requesting user is permitted to remove it.
+      If the call comes from an administrator, the ownership restriction can be bypassed explicitly through the
+      <code>admin_delete</code> argument. Deletions are recorded in the audit log.
+    </p>
+    <p>
+      Financial and status updates are handled by <code>update_trip_financials()</code>, while administrative status
+      updates use <code>update_trip_status_as_admin()</code>. This distinction preserves role semantics in the codebase.
+    </p>
+    <div class="page-no">Page 49 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Analytics Service</h1>
+    <p>
+      The analytics module encapsulates the reporting queries used by both the user dashboard and the admin panel.
+      It returns either scalar metrics or Pandas data frames, depending on the caller's need. This is a sensible split:
+      metrics are used for headline numbers, while data frames are used for charts and tables.
+    </p>
+    <p>
+      SQL queries in the module calculate total trip counts, upcoming trip counts, completed trip counts, spend totals,
+      monthly trends, spend by destination, and aggregate administrative metrics.
+    </p>
+    <div class="page-no">Page 50 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Export Service</h1>
+    <p>
+      The export module in <code>smart_travel/exports.py</code> converts in-memory trip data into user-downloadable
+      artifacts. It supports trip summary CSV, itinerary CSV, full trip JSON, and itinerary Markdown.
+    </p>
+    <p>
+      This feature is practical because users or evaluators may wish to archive trip plans, include them in reports,
+      or perform external analysis. It also strengthens the academic value of the project by producing portable outputs.
+    </p>
+    <div class="page-no">Page 51 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>User Interface Helper Module</h1>
+    <p>
+      The file <code>smart_travel/ui.py</code> collects UI-adjacent helpers such as page configuration, session-state
+      defaults, authentication gates, navigation buttons, and sidebar rendering. This keeps the page scripts clean and
+      removes repeated boilerplate.
+    </p>
+    <p>
+      The navigation design uses explicit buttons and <code>st.switch_page()</code>, which proved more reliable in the
+      final validated build than <code>st.page_link()</code> under the Streamlit testing harness.
+    </p>
+    <div class="page-no">Page 52 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Destination Dataset Design</h1>
+    <p>
+      The file <code>data/destinations.json</code> contains curated destination objects. Each record includes the
+      destination name, country, continent, average daily cost, meal cost, local transport estimate, activity cost,
+      flight cost, visa fee, suitable months, supported trip types, category scores, and sample activities.
+    </p>
+    <p>
+      This structure was chosen so the same dataset could support both recommendation scoring and itinerary generation
+      without needing separate data sources.
+    </p>
+    <div class="page-no">Page 53 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Destination Record Anatomy</h1>
+    <p>
+      A destination record contains both numeric and descriptive data. Numeric fields drive the budget engine and the
+      recommendation model. Descriptive fields, especially the activity list, drive itinerary generation and allow the
+      application to produce readable plans rather than generic placeholders.
+    </p>
+    <p>
+      The category scores such as <code>food</code>, <code>culture</code>, <code>nature</code>, and
+      <code>photography</code> create a practical bridge between user interests and destination suitability.
+    </p>
+    <div class="page-no">Page 54 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Sample Dataset Coverage</h1>
+    <p>
+      The current dataset includes locations such as Bali, Dubai, Kyoto, Paris, Phuket, Rome, Singapore, Istanbul,
+      Cape Town, Sydney, and Goa. This selection spans multiple continents and travel styles, which allows the
+      recommendation engine to provide meaningful variety.
+    </p>
+    <p>
+      The dataset is not massive, but it is realistic enough for demonstration and evaluation. A curated data set is
+      preferable here because it keeps the application deterministic and easy to verify.
+    </p>
+    <div class="page-no">Page 55 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Error Handling Strategy</h1>
+    <p>
+      Critical operations across the application are wrapped in try-except blocks. When something fails, the exception
+      is logged with stack trace details through <code>logger.exception()</code> via the shared helper
+      <code>log_exception()</code>. User-facing functions then return safe error messages rather than raw tracebacks.
+    </p>
+    <p>
+      This is an important quality feature. It ensures failures are visible to developers or evaluators while keeping
+      the user experience controlled.
+    </p>
+    <div class="page-no">Page 56 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Logging Strategy</h1>
+    <p>
+      The logging requirement for the project was explicit, and the implementation satisfies it. The application logs
+      startup, database initialization, user registration, login attempts, successful logins, failed logins, logout,
+      trip creation, trip update, trip deletion, recommendation generation, budget calculations, admin actions,
+      validation failures, database errors, and shutdown.
+    </p>
+    <p>
+      The log file is stored at <code>logs/application.log</code>, and the admin panel can display its recent tail.
+    </p>
+    <div class="page-no">Page 57 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Security Model</h1>
+    <p>
+      For a local academic application, the security model is appropriate and responsibly implemented. It includes
+      hashed passwords with salts, generic authentication error messages, role checks for admin-only pages, user
+      ownership checks for non-admin trip deletions, and a stored audit trail for sensitive operations.
+    </p>
+    <p>
+      The system does not claim enterprise-grade security, but it avoids major beginner mistakes such as plain-text
+      passwords, unrestricted admin access, or silent authentication failures.
+    </p>
+    <div class="page-no">Page 58 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Validation Matrix</h1>
+    <table>
+      <tr><th>Area</th><th>Checks</th></tr>
+      <tr><td>Registration</td><td>Name present, valid email, valid currency, password complexity, valid preferences</td></tr>
+      <tr><td>Login</td><td>Email lookup, active account, hash comparison</td></tr>
+      <tr><td>Trip</td><td>Required text, date order, future start date, traveler range, budget positive, enum validity</td></tr>
+      <tr><td>Preferences</td><td>Travel style, budget level, interest values</td></tr>
+      <tr><td>Password change</td><td>Current password verification and new password policy</td></tr>
+    </table>
+    <p>
+      Strong validation reduces corruption risk in both the UI and the database.
+    </p>
+    <div class="page-no">Page 59 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Administrative Governance</h1>
+    <p>
+      The administrator role is not only decorative. The code treats it as a governance layer. Admin users can inspect
+      all users and trips, modify access flags, change trip status at a system level, view audit activity, and delete
+      trips if required. These actions are written as audit events with the acting administrator's user ID.
+    </p>
+    <p>
+      This design demonstrates role-based responsibility and creates a stronger project narrative for evaluation.
+    </p>
+    <div class="page-no">Page 60 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>End-to-End Data Flow</h1>
+    <p>
+      A typical create-trip operation passes through many modules. The UI page gathers input, the validation module
+      checks correctness, the data loader provides destination detail, the budget engine computes costs, the itinerary
+      engine creates schedule rows, the recommendation engine ranks alternatives, the database layer persists records,
+      the logging layer records the event, and the analytics layer later summarizes the result.
+    </p>
+    <p>
+      This chain is evidence of a genuine integrated software system rather than a collection of disconnected scripts.
+    </p>
+    <div class="page-no">Page 61 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>User Journey Scenario 1</h1>
+    <p>
+      Consider a new user who wants to plan a cultural holiday in Kyoto. The user first registers, selects preferred
+      interests such as culture, food, and nature, and logs in. On the trip-planning page, the user requests
+      recommendations and receives Kyoto among the results because its category scores and seasonal fit are strong.
+    </p>
+    <p>
+      The user then creates the trip, receives a budget estimate, views a generated five-day itinerary, and later finds
+      the trip in history and analytics. This scenario exercises the core value chain of the project.
+    </p>
+    <div class="page-no">Page 62 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>User Journey Scenario 2</h1>
+    <p>
+      A returning user with a preference for family travel may log in, view the dashboard, inspect upcoming trips,
+      and create a new plan to Singapore or Dubai. The dashboard recommendations draw from stored preferences, reducing
+      data entry. After saving a trip, the user exports the itinerary in Markdown format for sharing or documentation.
+    </p>
+    <p>
+      This scenario demonstrates retention value: the application stores enough preference and history data to improve
+      future planning sessions.
+    </p>
+    <div class="page-no">Page 63 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>User Journey Scenario 3</h1>
+    <p>
+      An administrator logs in using the default admin account. The admin panel shows how many users and trips are in
+      the system, along with total estimated spend and the volume of audit events. The administrator can disable an
+      account, change another user to admin status, update a problematic trip status, or inspect recent logs.
+    </p>
+    <p>
+      This scenario highlights the governance layer and helps justify the project's classification as more than a
+      personal notebook application.
+    </p>
+    <div class="page-no">Page 64 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Testing Strategy</h1>
+    <p>
+      Testing for the project focused on practical correctness rather than elaborate test framework overhead. The system
+      was validated using compilation checks, service-level smoke execution, Streamlit page execution through the
+      testing harness, and a real server boot with health endpoint verification.
+    </p>
+    <p>
+      This mix is appropriate for a Streamlit project because it checks both Python correctness and page-runtime behavior.
+    </p>
+    <div class="page-no">Page 65 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Static Validation</h1>
+    <p>
+      The repository was compiled with <code>python -m compileall .</code>. This ensured that all Python files were
+      syntactically valid. Compilation covered the root entrypoint, all page scripts, and every module in the
+      <code>smart_travel</code> package.
+    </p>
+    <p>
+      Static validation is essential because it catches syntax issues before runtime and helps confirm that imports
+      can at least be resolved during bytecode generation.
+    </p>
+    <div class="page-no">Page 66 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Service Smoke Testing</h1>
+    <p>
+      A direct service smoke test was executed using Python. It initialized the application, registered a user,
+      authenticated the user, created a Kyoto trip, retrieved the trip details, verified that the itinerary had five
+      days, checked that recommendations existed, and loaded both user and admin analytics outputs.
+    </p>
+    <p>
+      This test proved that the code path from authentication to trip persistence to analytics was operational.
+    </p>
+    <div class="page-no">Page 67 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Streamlit Page Testing</h1>
+    <p>
+      The final implementation was also executed through <code>streamlit.testing.v1.AppTest</code>. All public pages
+      and protected pages were loaded in the test harness, with session state injected for authenticated contexts and
+      administrator contexts where required.
+    </p>
+    <p>
+      This test method found a runtime issue during development related to Streamlit navigation metadata, which was then
+      corrected by replacing page-link usage with button-driven page switches. That correction is part of the final build.
+    </p>
+    <div class="page-no">Page 68 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Live Boot Validation</h1>
+    <p>
+      The project was started with <code>python -m streamlit run app.py --server.headless true --server.port 8501</code>
+      and then checked through Streamlit's health endpoint at <code>/_stcore/health</code>. The endpoint responded with
+      <code>ok</code>, confirming that the server booted successfully and the runtime environment was sound.
+    </p>
+    <p>
+      This check matters because it validates the actual operator entry path rather than only library imports.
+    </p>
+    <div class="page-no">Page 69 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Performance Considerations</h1>
+    <p>
+      The application is lightweight, and its performance characteristics are favorable for the intended scale.
+      SQLite is fast for small to medium local workloads. The destination dataset is cached in memory after first load.
+      Queries are simple and indexed implicitly through primary keys and unique constraints.
+    </p>
+    <p>
+      The most expensive operations are itinerary regeneration and recommendation scoring, but even these are modest
+      because the destination dataset is small and deterministic.
+    </p>
+    <div class="page-no">Page 70 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Scalability Considerations</h1>
+    <p>
+      The current design is optimized for local or low-concurrency educational usage. If the system needed to scale,
+      SQLite would be the first component to reconsider. A networked relational database such as PostgreSQL would be
+      a more appropriate backend for concurrent multi-user traffic.
+    </p>
+    <p>
+      Even so, the service structure would support that migration reasonably well because database interactions are
+      mostly concentrated in a dedicated module and in analytics queries.
+    </p>
+    <div class="page-no">Page 71 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Maintainability Considerations</h1>
+    <p>
+      The codebase is maintainable because responsibilities are separated. Validation is not mixed with UI rendering,
+      database statements are not scattered across every page, and business logic such as budgeting and itinerary
+      generation resides in dedicated modules. Enumerated values are centralized in configuration.
+    </p>
+    <p>
+      This means future features can be added with predictable extension points rather than widespread edits.
+    </p>
+    <div class="page-no">Page 72 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Deployment Notes</h1>
+    <p>
+      Deployment for this application is straightforward. The environment needs Python, the dependencies from
+      <code>requirements.txt</code>, and write permission for the project folder so that the database and log file can
+      be created. Streamlit serves the app locally or on a compatible host with a single command.
+    </p>
+    <p>
+      Because the project avoids heavyweight external services, deployment complexity remains low, which is useful for
+      classrooms, lab machines, and project demonstrations.
+    </p>
+    <div class="page-no">Page 73 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Installation Procedure</h1>
+    <ol>
+      <li>Install Python 3.14 or a compatible Python 3.x runtime.</li>
+      <li>Open the project folder in a terminal.</li>
+      <li>Run <code>python -m pip install -r requirements.txt</code>.</li>
+      <li>Start the application with <code>python -m streamlit run app.py</code>.</li>
+      <li>Open the provided local URL in a browser.</li>
+    </ol>
+    <p>
+      On first run, the application creates the SQLite database and the log file automatically.
+    </p>
+    <div class="page-no">Page 74 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Operational Guide</h1>
+    <p>
+      A typical operator sequence is simple. Start the app, register a new user or log in with the default admin,
+      review the dashboard, open the trip planning page, generate recommendations, save a trip, inspect the history,
+      and review analytics. Administrators can then move to the admin panel for oversight.
+    </p>
+    <p>
+      The application's usability comes from this sequential structure. It does not force the user to understand the
+      internal logic in order to get value from it.
+    </p>
+    <div class="page-no">Page 75 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Current Limitations</h1>
+    <p>
+      The project intentionally avoids certain advanced features. It does not integrate airline or hotel APIs, does not
+      support collaborative trip editing, does not provide map rendering, and does not perform route optimization.
+      The recommendation engine is rule-based and dataset-driven, not machine-learned.
+    </p>
+    <p>
+      These are limitations in product scope, not implementation defects. Within the defined scope, the project is complete.
+    </p>
+    <div class="page-no">Page 76 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Future Enhancement Paths</h1>
+    <ul>
+      <li>Migration from SQLite to PostgreSQL for concurrent multi-user hosting</li>
+      <li>Integration with mapping APIs and route-time estimation</li>
+      <li>User-uploaded custom destinations and notes enrichment</li>
+      <li>Cost localization by currency conversion and region-specific pricing</li>
+      <li>Calendar integration and downloadable PDF generation</li>
+      <li>Advanced recommendation scoring using feedback and historical trip behavior</li>
+    </ul>
+    <p>
+      Because the current codebase is modular, these additions are realistic future extensions rather than a rewrite requirement.
+    </p>
+    <div class="page-no">Page 77 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Academic Learning Outcomes</h1>
+    <p>
+      This project demonstrates several important software-engineering competencies: requirements translation, layered
+      design, relational schema creation, authentication, validation, logging, testing, analytics, export support, and
+      project documentation. It also shows how to move from a blank repository to a working application with complete
+      operational flows.
+    </p>
+    <p>
+      For viva or evaluation discussion, the strongest talking points are the service orchestration, the derived-trip
+      artifact model, the logging and audit system, and the evidence-backed validation process.
+    </p>
+    <div class="page-no">Page 78 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Conclusion</h1>
+    <p>
+      The Smart Travel Planner Application is a well-scoped and fully implemented academic software project. It solves
+      a clear planning problem through a coherent combination of authentication, database-backed CRUD, budgeting,
+      recommendation logic, itinerary generation, analytics, exports, and administrative oversight.
+    </p>
+    <p>
+      From an engineering perspective, the project is strong because it is complete, modular, test-validated, and
+      operational. From an academic perspective, it is strong because each design decision can be explained and defended.
+    </p>
+    <div class="page-no">Page 79 of 80</div>
+  </section>
+
+  <section class="page">
+    <h1>Appendix: File Inventory</h1>
+    <table>
+      <tr><th>File</th><th>Description</th></tr>
+      <tr><td><code>app.py</code></td><td>Main entrypoint and landing page</td></tr>
+      <tr><td><code>pages/1_Register.py</code></td><td>User registration page</td></tr>
+      <tr><td><code>pages/2_Login.py</code></td><td>User login page</td></tr>
+      <tr><td><code>pages/3_Dashboard.py</code></td><td>User dashboard</td></tr>
+      <tr><td><code>pages/4_Plan_A_Trip.py</code></td><td>Recommendations and trip creation</td></tr>
+      <tr><td><code>pages/5_Trip_History.py</code></td><td>History, updates, deletion, exports</td></tr>
+      <tr><td><code>pages/6_Profile.py</code></td><td>Account, preferences, and password management</td></tr>
+      <tr><td><code>pages/7_Analytics.py</code></td><td>Charts and analytics tables</td></tr>
+      <tr><td><code>pages/8_Admin_Panel.py</code></td><td>Administrator oversight console</td></tr>
+      <tr><td><code>smart_travel/config.py</code></td><td>Constants and filesystem paths</td></tr>
+      <tr><td><code>smart_travel/logger.py</code></td><td>Logging setup and exception helper</td></tr>
+      <tr><td><code>smart_travel/database.py</code></td><td>Schema, connections, queries, audit writes</td></tr>
+      <tr><td><code>smart_travel/validators.py</code></td><td>Registration, password, trip, and preference validation</td></tr>
+      <tr><td><code>smart_travel/auth.py</code></td><td>Registration, login, profile, preferences, password change</td></tr>
+      <tr><td><code>smart_travel/budget.py</code></td><td>Budget engine</td></tr>
+      <tr><td><code>smart_travel/itinerary.py</code></td><td>Itinerary generation</td></tr>
+      <tr><td><code>smart_travel/recommendation.py</code></td><td>Destination recommendation engine</td></tr>
+      <tr><td><code>smart_travel/services.py</code></td><td>Workflow orchestration and trip persistence</td></tr>
+      <tr><td><code>smart_travel/analytics.py</code></td><td>Metrics and chart data providers</td></tr>
+      <tr><td><code>smart_travel/exports.py</code></td><td>CSV, JSON, and Markdown exports</td></tr>
+      <tr><td><code>smart_travel/ui.py</code></td><td>Session and navigation helpers</td></tr>
+      <tr><td><code>data/destinations.json</code></td><td>Seed destination dataset</td></tr>
+      <tr><td><code>requirements.txt</code></td><td>Project dependencies</td></tr>
+      <tr><td><code>logs/application.log</code></td><td>Runtime event log</td></tr>
+      <tr><td><code>smart_travel.db</code></td><td>SQLite database</td></tr>
+    </table>
+    <p>
+      This appendix closes the report with a direct mapping from the documented system to the delivered repository.
+    </p>
+    <div class="page-no">Page 80 of 80</div>
+  </section>
+</body>
+</html>

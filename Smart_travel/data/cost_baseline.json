@@ -1,0 +1,37 @@
+{
+  "hotels": {
+    "Budget": {"min": 800, "max": 1800, "default": 1300},
+    "Mid-range": {"min": 1800, "max": 4000, "default": 2900},
+    "Premium": {"min": 4000, "max": 8000, "default": 6000},
+    "Luxury": {"min": 8000, "max": 20000, "default": 14000}
+  },
+  "food": {
+    "Budget": {"min": 300, "max": 500, "default": 400},
+    "Mid-range": {"min": 500, "max": 1000, "default": 750},
+    "Premium": {"min": 1000, "max": 2500, "default": 1750}
+  },
+  "transport": {
+    "TNSTC/private bus": {"type": "per_km", "rate_per_km": 1.4, "name": "State/Private Bus"},
+    "Train (Sleeper/3AC)": {"type": "flat_band", "rates": {"short": 250, "long": 850}, "name": "Indian Railways (Train)"},
+    "Flight (intra-TN/metro hop)": {"type": "flat", "flat_rate": 4500, "name": "Domestic Flight"},
+    "Rental car with driver": {"type": "per_day", "rate_per_day": 3500, "name": "Chauffeur Rental Car"},
+    "Self-drive cab": {"type": "per_km", "rate_per_km": 15.0, "name": "Self-drive Cab"}
+  },
+  "distances_from_chennai": {
+    "Chennai": 0,
+    "Mahabalipuram": 60,
+    "Vellore": 140,
+    "Pondicherry": 160,
+    "Kanchipuram": 75,
+    "Thanjavur": 340,
+    "Tiruchirapalli (Trichy)": 320,
+    "Coimbatore": 500,
+    "Ooty": 565,
+    "Kodaikanal": 520,
+    "Madurai": 460,
+    "Rameswaram": 570,
+    "Kanyakumari": 690,
+    "Courtallam": 620,
+    "Yercaud": 365
+  }
+}
